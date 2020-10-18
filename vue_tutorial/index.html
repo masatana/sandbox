@@ -1,50 +1,54 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Vue.js App</title>
-        <link rel="stylesheet" href="main.css">
-    </head>
-    <body>
-        <div id="app">
-            <h1>ToDoリスト</h1>
-            <label v-for="label in options">
-                <input type="radio" v-model="current" v-bind:value="label.value">{{ label.label }}
-            </label>
 
-            ( {{ computedTodos.length }} 件を表示 )
-            <table>
-                <thead v-pre>
-                    <tr>
-                        <th class="id">ID</th>
-                        <th class="comment">comment</th>
-                        <th class="state">state</th>
-                        <th class="button">delete w/ CTRL</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="item in computedTodos" v-bind:key="item.id" v-bind:class="{done:item.state}">
-                        <th>{{ item.id }}</th>
-                        <td>{{ item.comment }}</td>
-                        <td class="state">
-                            <button v-on:click="doChangeState(item)">{{ labels[item.state] }}</button>
-                        </td>
-                        <td class="button" v-on:click.ctrl="doRemove(item)">
-                            <button>削除</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <h2>新しい作業の追加</h2>
-            <form class="add-form" v-on:submit.prevent="doAdd">
-                コメント <input type="text" ref="comment">
-                <button type="submit">追加</button>
-            </form>
-            <h2>デバッグ用</h2>
-            <input type="button" value="全削除(CTRL)" v-on:click.ctrl="doRemoveAll()"></input>
-        </div>
-        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-        <script src="main.js"></script></script>
-    </body>
+<head>
+    <meta charset="utf-8">
+    <title>Vue.js App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+
+<body>
+    <div id="app">
+        <h1>ToDoリスト</h1>
+        <label v-for="label in options">
+            <input type="radio" v-model="current" v-bind:value="label.value">{{ label.label }}
+        </label>
+
+        ( {{ computedTodos.length }} 件を表示 )
+        <table class="table">
+            <thead v-pre>
+                <tr>
+                    <th class="id">ID</th>
+                    <th class="comment">comment</th>
+                    <th class="state">state</th>
+                    <th class="button">delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in computedTodos" v-bind:key="item.id" v-bind:class="{done:item.state}">
+                    <th>{{ item.id }}</th>
+                    <td>{{ item.comment }}</td>
+                    <td class="state">
+                        <button type="button" class="btn btn-primary" v-on:click="doChangeState(item)">{{ labels[item.state] }}</button>
+                    </td>
+                    <td class="button" v-on:click.ctrl="doRemove(item)">
+                        <button type="button" class="btn btn-primary">削除</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>新しい作業の追加</h2>
+        <form class="add-form" v-on:submit.prevent="doAdd">
+            コメント <input type="text" ref="comment">
+            <button type="submit">追加</button>
+        </form>
+        <h2>デバッグ用</h2>
+        <button type="button" class="btn btn-primary btn-lg" v-on:click.ctrl="doRemoveAll()">Delete All</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="main.js"></script>
+    </script>
+</body>
+
 </html>
